@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services — Problem Solving Enterprises</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:        #1E3A5F;
+  --navy-deep:   #0F1F33;
+  --navy-mid:    #254878;
+  --amber:       #E8A020;
+  --amber-dim:   #B87D10;
+  --amber-light: #FDF3CC;
+  --off-white:   #F5F6F8;
+  --white:       #FFFFFF;
+  --slate:       #4A5568;
+  --slate-light: #718096;
+  --rule-light:  rgba(30,58,95,0.10);
+  --rule-dark:   rgba(255,255,255,0.10);
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-body:    'Barlow', sans-serif;
+  --font-mono:    'IBM Plex Mono', monospace;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--slate);
+  background: var(--white);
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--navy-deep);
+  border-bottom: 1px solid var(--rule-dark);
+  padding: 0 60px;
+  height: 80px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo { text-decoration: none; display: flex; align-items: center; }
+.nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+.nav-links a {
+  font-family: var(--font-body); font-size: 15px; font-weight: 500;
+  color: rgba(255,255,255,0.65); text-decoration: none;
+  letter-spacing: 0.02em; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--white); }
+.btn-nav {
+  background: var(--amber); color: var(--white) !important;
+  padding: 9px 22px;
+  font-family: var(--font-display) !important;
+  font-weight: 700 !important; font-size: 13px !important;
+  letter-spacing: 0.08em !important; text-transform: uppercase;
+  transition: background 0.2s !important; text-decoration: none;
+  border-radius: 2px;
+}
+.btn-nav:hover { background: var(--amber-dim) !important; }
+
+/* ── SHARED ── */
+.container { max-width: 1080px; margin: 0 auto; padding: 0 60px; }
+.label {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+}
+.btn-primary {
+  background: var(--amber); color: var(--white);
+  padding: 14px 32px; font-family: var(--font-display); font-weight: 700;
+  font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: background 0.2s, transform 0.15s; display: inline-block;
+  border-radius: 2px;
+}
+.btn-primary:hover { background: var(--amber-dim); transform: translateY(-1px); }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+
+/* ── PAGE HERO — 50vh, dark navy with grid ── */
+.page-hero {
+  position: relative; min-height: 50vh;
+  display: flex; align-items: center;
+  background: var(--navy);
+  overflow: hidden; padding: 140px 60px 80px;
+}
+.page-hero-bg {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.page-hero-accent {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--amber), var(--amber) 60%, transparent);
+}
+.page-hero-inner {
+  position: relative; z-index: 2;
+  max-width: 1080px; margin: 0 auto; width: 100%;
+}
+.page-hero-eyebrow { display: block; color: var(--amber); margin-bottom: 20px; }
+.page-hero-h1 {
+  font-family: var(--font-display); font-weight: 700;
+  letter-spacing: 0.02em; line-height: 1.05;
+  font-size: clamp(38px, 5vw, 64px);
+  color: var(--white); margin-bottom: 20px;
+}
+.page-hero-sub {
+  font-size: 17px; color: rgba(255,255,255,0.68);
+  line-height: 1.75; max-width: 640px;
+}
+
+/* ── SECTION SHARED ── */
+.svc-header { margin-bottom: 48px; }
+.svc-eyebrow { display: block; color: var(--amber); margin-bottom: 14px; }
+.svc-h2 {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(36px, 5vw, 56px); line-height: 1.1; letter-spacing: 0.02em;
+  color: var(--navy); margin-bottom: 24px;
+}
+.svc-body { max-width: 760px; margin-bottom: 48px; }
+.svc-body p { font-size: 16px; color: var(--slate); line-height: 1.75; margin-bottom: 18px; }
+.svc-body p:last-child { margin-bottom: 0; }
+
+/* ── SERVICE CARDS ── */
+.svc-cards-wrap {
+  background: var(--white); padding: 40px;
+  margin: 0; border-radius: 2px;
+}
+.svc-cards-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+}
+.svc-card {
+  background: var(--white); padding: 36px 32px;
+  border-top: 3px solid var(--amber);
+  box-shadow: 0 2px 12px rgba(30,58,95,0.06);
+}
+.svc-card-title {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 22px; line-height: 1.15; letter-spacing: 0.02em;
+  color: var(--navy); margin-bottom: 12px;
+}
+.svc-card-body {
+  font-size: 15px; color: var(--slate); line-height: 1.7; margin-bottom: 20px;
+}
+.svc-card-caps { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.svc-card-caps li {
+  font-size: 13px; color: var(--slate-light); line-height: 1.5;
+  display: flex; align-items: flex-start; gap: 10px;
+}
+.svc-card-caps li::before {
+  content: ''; width: 4px; height: 4px; background: var(--amber);
+  border-radius: 50%; margin-top: 6px; flex-shrink: 0;
+}
+
+/* ── WHO THIS IS FOR STRIP ── */
+.who-for-strip {
+  background: var(--white);
+  padding: 64px 0 64px;
+}
+#admin .who-for-strip { background: var(--off-white); }
+.who-for-eyebrow { display: block; color: var(--amber); margin-bottom: 14px; }
+.who-for-heading {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(22px, 2.5vw, 30px); line-height: 1.1; letter-spacing: 0.02em;
+  color: var(--navy); margin-bottom: 40px;
+}
+.who-for-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px;
+}
+.who-for-col-title {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 18px; letter-spacing: 0.02em; color: var(--navy);
+  margin-bottom: 10px;
+}
+.who-for-col p { font-size: 15px; color: var(--slate); line-height: 1.7; }
+
+/* ── ADMIN SERVICES LIST ── */
+.admin-services-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+  margin: 0;
+  border: 1px solid var(--rule-light);
+}
+.admin-category {
+  padding: 32px 36px;
+  border-bottom: 1px solid var(--rule-light);
+}
+.admin-category:nth-child(odd) { border-right: 1px solid var(--rule-light); }
+.admin-category:nth-last-child(-n+2) { border-bottom: none; }
+.admin-cat-title {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 17px; letter-spacing: 0.02em; color: var(--navy);
+  margin-bottom: 14px;
+}
+.admin-cat-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.admin-cat-list li {
+  font-size: 14px; color: var(--slate); line-height: 1.5;
+  display: flex; align-items: flex-start; gap: 10px;
+}
+.admin-cat-list li::before {
+  content: ''; width: 4px; height: 4px; background: var(--amber);
+  border-radius: 50%; margin-top: 6px; flex-shrink: 0;
+}
+
+/* ── CTA SECTION ── */
+#cta {
+  background: var(--navy); padding: 100px 0;
+  position: relative; overflow: hidden;
+}
+.cta-inner { text-align: center; max-width: 680px; margin: 0 auto; padding: 0 40px; position: relative; z-index: 2; }
+.cta-title {
+  font-family: var(--font-display); font-weight: 700; line-height: 1.1;
+  letter-spacing: 0.02em; font-size: clamp(32px, 4vw, 48px);
+  color: var(--white); margin-bottom: 20px;
+}
+.cta-body { font-size: 17px; color: rgba(255,255,255,0.7); line-height: 1.75; margin-bottom: 40px; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--navy-deep); border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 36px 60px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-copy { font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.35); letter-spacing: 0.06em; }
+.footer-links { display: flex; gap: 28px; }
+.footer-links a { font-size: 13px; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--amber); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .page-hero { padding: 120px 24px 64px; }
+  .container { padding: 0 24px; }
+  .svc-cards-grid { grid-template-columns: 1fr; }
+  .svc-cards-wrap { padding: 24px; }
+  .who-for-grid { grid-template-columns: 1fr; gap: 32px; }
+  .admin-services-grid { grid-template-columns: 1fr; }
+  .admin-category:nth-child(odd) { border-right: none; }
+  .admin-category:nth-last-child(-n+2) { border-bottom: 1px solid var(--rule-light); }
+  .admin-category:last-child { border-bottom: none; }
+  footer { padding: 36px 24px; flex-direction: column; gap: 20px; align-items: flex-start; }
+  #cta { padding: 64px 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="PSE-Secondary-DK-BK.png" alt="Problem Solving Enterprises" style="height:52px;width:auto;">
+  </a>
+  <ul class="nav-links">
+    <li><a href="services.html">Services</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="icmg.html">ICMG</a></li>
+    <li><a href="#cta" class="btn-nav">Schedule a Call</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-accent"></div>
+  <div class="page-hero-inner">
+    <span class="label page-hero-eyebrow">What We Do</span>
+    <h1 class="page-hero-h1">Two practices.<br>One standard of excellence.</h1>
+    <p class="page-hero-sub">PSE's work divides into two distinct practices — high-stakes actuarial strategy led personally by Chuck Ritzke, and a full operational practice run by his team. The work looks different. The standard doesn't.</p>
+  </div>
+</section>
+
+<!-- ACTUARIAL STRATEGY & INNOVATION -->
+<section id="actuarial" style="background:var(--white); padding: 80px 0;">
+  <div class="container">
+    <div class="svc-header reveal">
+      <div style="font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--navy); background:var(--amber); display:inline-block; padding:4px 12px; margin-bottom:20px;">Practice One of Two</div>
+      <span class="label svc-eyebrow">Actuarial · Strategy</span>
+      <h2 class="svc-h2">The work Chuck does personally.</h2>
+      <div class="svc-body">
+        <p>Chuck Ritzke has spent four decades at the intersection of insurance product development and actuarial rigor. The work in this practice isn't delegated — it's the work Chuck does himself. From initial product concept through regulatory approval, every engagement here is led by an FSA with the depth to identify risk before it becomes a problem and the creativity to design products that work in the real world. This is not boilerplate consulting. The products that come out of this practice are built on 40 years of doing the hard work no one else will touch.</p>
+        <p>PSE's actuarial strategy work spans the full product lifecycle — from early-stage feasibility and pricing through ongoing actuarial support, software development, and carrier negotiations. Whether you're a carrier launching a new product line, a distributor bringing a concept to market, or an insurtech company building credibility with a carrier partner, this is where that work gets done right.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="svc-cards-wrap reveal">
+    <div class="container">
+      <div class="svc-cards-grid">
+
+        <div class="svc-card reveal">
+          <div class="svc-card-title">Actuarial Consulting</div>
+          <p class="svc-card-body">FSA-level actuarial work across the full range of life, annuity, and specialty insurance products. Chuck brings 40 years of practical application — not theoretical frameworks, but the kind of actuarial judgment that comes from having done this work for real carriers and real products.</p>
+          <ul class="svc-card-caps">
+            <li>Pricing, valuation, and reserve analysis</li>
+            <li>Risk assessment and stress testing</li>
+            <li>Financial modeling and projections</li>
+            <li>Actuarial opinion and sign-off</li>
+          </ul>
+        </div>
+
+        <div class="svc-card reveal reveal-delay-1">
+          <div class="svc-card-title">Product Design &amp; Pricing</div>
+          <p class="svc-card-body">From concept to filing-ready product. Chuck has designed products across life, annuity, worksite, and specialty lines — including two patented innovations developed in partnership with carrier clients. The goal is always a product that works actuarially, passes regulatory scrutiny, and sells.</p>
+          <ul class="svc-card-caps">
+            <li>New product concept development and feasibility</li>
+            <li>Market and competitive analysis</li>
+            <li>Filing-ready actuarial memoranda</li>
+            <li>Post-launch monitoring and experience studies</li>
+          </ul>
+        </div>
+
+        <div class="svc-card reveal">
+          <div class="svc-card-title">Software Development</div>
+          <p class="svc-card-body">Custom actuarial and insurance software built for problems that off-the-shelf tools can't solve. Illustration engines, planning platforms, administrative tools, and data systems — designed by people who understand both the insurance problem and the technical requirements.</p>
+          <ul class="svc-card-caps">
+            <li>Illustration and quoting systems</li>
+            <li>Financial planning and modeling platforms</li>
+            <li>Data analysis and regulatory reporting tools</li>
+            <li>API integration and system interfaces</li>
+          </ul>
+        </div>
+
+        <div class="svc-card reveal reveal-delay-1">
+          <div class="svc-card-title">Insurtech Advising</div>
+          <p class="svc-card-body">Strategic actuarial guidance for technology companies operating in the insurance space. Chuck has worked with insurtechs from seed stage through IPO — providing the actuarial credibility and carrier-facing expertise that most technology companies don't have internally and can't easily hire.</p>
+          <ul class="svc-card-caps">
+            <li>Actuarial credibility and carrier negotiation support</li>
+            <li>Product structure and insurance risk assessment</li>
+            <li>Regulatory strategy and filing guidance</li>
+            <li>SOA insurtech mentor program participant</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="who-for-strip reveal">
+    <div class="container">
+      <span class="label who-for-eyebrow">Who this is for</span>
+      <h3 class="who-for-heading">Actuarial strategy clients come in three forms.</h3>
+      <div class="who-for-grid">
+        <div class="who-for-col">
+          <div class="who-for-col-title">Carriers</div>
+          <p>Carriers working on new product development, legacy product modernization, or entering a new line of business. Chuck has been the actuarial lead on product launches for major carriers and first-time market entrants alike — and has the credibility and track record to navigate the most complex regulatory environments.</p>
+        </div>
+        <div class="who-for-col">
+          <div class="who-for-col-title">Distributors &amp; IMOs</div>
+          <p>Distribution organizations with a product idea that needs actuarial development and carrier backing to become real. We do the technical work that makes a concept viable — pricing, structuring, and filing — and bring the carrier relationships necessary to move from concept to market.</p>
+        </div>
+        <div class="who-for-col">
+          <div class="who-for-col-title">Insurtech Companies</div>
+          <p>Technology companies operating in the insurance space who need actuarial credibility, carrier access, or the ability to have a technically serious conversation with an underwriter. We've supported founders from seed stage through public offering, and we understand the pace at which these companies need to operate.</p>
+        </div>
+      </div>
+      <div style="text-align:center; padding-top:48px;">
+        <a href="#calendly" class="btn-primary">Schedule a Call</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="background:var(--white); padding:0 60px;">
+  <div style="max-width:1080px; margin:0 auto; height:1px; background:var(--rule-light);"></div>
+</div>
+
+<!-- ADMINISTRATIVE & OPERATIONAL -->
+<section id="admin" style="background:var(--off-white); padding: 80px 0;">
+  <div class="container">
+    <div class="svc-header reveal">
+      <div style="font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--navy); background:var(--amber); display:inline-block; padding:4px 12px; margin-bottom:20px;">Practice Two of Two</div>
+      <span class="label svc-eyebrow">Operations · Support</span>
+      <h2 class="svc-h2">The execution layer that makes innovation real.</h2>
+      <div class="svc-body">
+        <p>Not every piece of work in insurance is glamorous. System conversions, compliance filings, legacy block administration, ongoing policy support — this is the operational layer that holds insurance products together after they're launched. Without it, even the best product design falls apart in execution. PSE's administrative and operational practice handles this work with the same precision and institutional knowledge we bring to product development.</p>
+        <p>This practice is team-delivered. Chuck has built a team of specialists with deep experience in insurance operations, regulatory compliance, and administrative systems. They handle the work that's too important to hand off to someone who doesn't understand insurance, and too time-consuming to staff internally. If you've worked with PSE on a product launch, this is the team that keeps it running.</p>
+      </div>
+    </div>
+
+    <div class="admin-services-grid reveal">
+
+      <div class="admin-category">
+        <div class="admin-cat-title">Compliance &amp; Regulatory Filing</div>
+        <ul class="admin-cat-list">
+          <li>Rate and form filings across all required states</li>
+          <li>Regulatory submission management and tracking</li>
+          <li>Compliance monitoring and ongoing updates</li>
+          <li>Department of Insurance correspondence and negotiation</li>
+        </ul>
+      </div>
+
+      <div class="admin-category">
+        <div class="admin-cat-title">Legacy Block Administration</div>
+        <ul class="admin-cat-list">
+          <li>Closed block and discontinued product administration</li>
+          <li>In-force policy management and policyholder services</li>
+          <li>Legacy system maintenance and documentation</li>
+          <li>Reserve calculations and actuarial support</li>
+        </ul>
+      </div>
+
+      <div class="admin-category">
+        <div class="admin-cat-title">System Conversions &amp; Data Migration</div>
+        <ul class="admin-cat-list">
+          <li>Policy data conversion from legacy to modern platforms</li>
+          <li>Data validation, quality assurance, and reconciliation</li>
+          <li>Parallel processing and conversion testing</li>
+          <li>Post-conversion support and issue resolution</li>
+        </ul>
+      </div>
+
+      <div class="admin-category">
+        <div class="admin-cat-title">Policy Administration &amp; Ongoing Support</div>
+        <ul class="admin-cat-list">
+          <li>Day-to-day policy administration and recordkeeping</li>
+          <li>Billing, premium processing, and reconciliation</li>
+          <li>Claims coordination and documentation</li>
+          <li>Policyholder correspondence and service support</li>
+        </ul>
+      </div>
+
+      <div class="admin-category">
+        <div class="admin-cat-title">Post-Issue Illustration &amp; Actuarial Requirements</div>
+        <ul class="admin-cat-list">
+          <li>In-force illustration support and systems</li>
+          <li>Actuarial guideline compliance and monitoring</li>
+          <li>Illustration actuary work and sign-off</li>
+          <li>Annual illustration testing and certification</li>
+        </ul>
+      </div>
+
+      <div class="admin-category">
+        <div class="admin-cat-title">Variable Performance Reporting</div>
+        <ul class="admin-cat-list">
+          <li>Performance reporting for variable and indexed products</li>
+          <li>Fund mapping, tracking, and reconciliation</li>
+          <li>Regulatory and carrier reporting</li>
+          <li>Long-term administration and historical reporting</li>
+        </ul>
+      </div>
+
+      <div class="admin-category" style="grid-column: 1 / -1; border-right: none;">
+        <div class="admin-cat-title">Marketing Consulting &amp; Distribution Support</div>
+        <ul class="admin-cat-list" style="columns: 2; gap: 40px; display: block;">
+          <li style="display:flex; align-items:flex-start; gap:10px; margin-bottom:8px; break-inside:avoid;"><span style="width:4px;height:4px;background:var(--amber);border-radius:50%;margin-top:6px;flex-shrink:0;display:inline-block;"></span>Distribution strategy and channel development</li>
+          <li style="display:flex; align-items:flex-start; gap:10px; margin-bottom:8px; break-inside:avoid;"><span style="width:4px;height:4px;background:var(--amber);border-radius:50%;margin-top:6px;flex-shrink:0;display:inline-block;"></span>Marketing material review and compliance</li>
+          <li style="display:flex; align-items:flex-start; gap:10px; break-inside:avoid;"><span style="width:4px;height:4px;background:var(--amber);border-radius:50%;margin-top:6px;flex-shrink:0;display:inline-block;"></span>Sales support tools and training materials</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="who-for-strip reveal">
+    <div class="container">
+      <span class="label who-for-eyebrow">Who this is for</span>
+      <h3 class="who-for-heading">Operational work serves all three audiences differently.</h3>
+      <div class="who-for-grid">
+        <div class="who-for-col">
+          <div class="who-for-col-title">Carriers</div>
+          <p>Carriers with in-force blocks that need ongoing administration, multi-state compliance filing needs, or operational complexity stemming from legacy systems and discontinued products. We've been in the engine room with carriers through system conversions, regulatory overhauls, and decades-old closed block issues. We know how this work gets done.</p>
+        </div>
+        <div class="who-for-col">
+          <div class="who-for-col-title">Distributors &amp; IMOs</div>
+          <p>Distribution organizations that need ongoing operational support for products already in the market — illustration infrastructure, compliance coordination across states, or marketing and sales support materials. Most relevant as a follow-on to a product development engagement, though we take operational-only engagements as well.</p>
+        </div>
+        <div class="who-for-col">
+          <div class="who-for-col-title">Insurtech Companies</div>
+          <p>Insurtech companies managing the operational reality of an insurance product in the market. Most technology companies aren't built to handle the compliance, administration, and reporting work that comes with a live insurance product. We handle that layer so your team can focus on what it's actually built to do.</p>
+        </div>
+      </div>
+      <div style="text-align:center; padding-top:48px;">
+        <a href="#calendly" class="btn-primary">Schedule a Call</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING CTA -->
+<section id="cta">
+  <div class="page-hero-bg"></div>
+  <div class="container">
+  <div class="cta-inner reveal">
+    <span class="label" style="color:var(--amber);display:block;margin-bottom:20px;">Let's talk</span>
+    <h2 class="cta-title">Ready to move your next idea forward?</h2>
+    <p class="cta-body">Whether you're launching a new product, working through a complex regulatory challenge, or looking for an experienced actuarial partner who's been through it before — Chuck and the PSE team are the right call.</p>
+    <a href="#calendly" class="btn-primary" style="font-size:15px;padding:16px 40px;">Schedule a Call</a>
+  </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">© 2026 Problem Solving Enterprises · Chicago, IL</div>
+  <div class="footer-links">
+    <a href="services.html">Services</a>
+    <a href="about.html">About</a>
+    <a href="icmg.html">ICMG</a>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

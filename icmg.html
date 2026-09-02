@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICMG — Problem Solving Enterprises</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:        #1E3A5F;
+  --navy-deep:   #0F1F33;
+  --navy-mid:    #254878;
+  --amber:       #E8A020;
+  --amber-dim:   #B87D10;
+  --amber-light: #FDF3CC;
+  --off-white:   #F5F6F8;
+  --white:       #FFFFFF;
+  --slate:       #4A5568;
+  --slate-light: #718096;
+  --rule-light:  rgba(30,58,95,0.10);
+  --rule-dark:   rgba(255,255,255,0.10);
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-body:    'Barlow', sans-serif;
+  --font-mono:    'IBM Plex Mono', monospace;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--slate);
+  background: var(--white);
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--navy-deep);
+  border-bottom: 1px solid var(--rule-dark);
+  padding: 0 60px;
+  height: 80px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo { text-decoration: none; display: flex; align-items: center; }
+.nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+.nav-links a {
+  font-family: var(--font-body); font-size: 15px; font-weight: 500;
+  color: rgba(255,255,255,0.65); text-decoration: none;
+  letter-spacing: 0.02em; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--white); }
+.btn-nav {
+  background: var(--amber); color: var(--white) !important;
+  padding: 9px 22px;
+  font-family: var(--font-display) !important;
+  font-weight: 700 !important; font-size: 13px !important;
+  letter-spacing: 0.08em !important; text-transform: uppercase;
+  transition: background 0.2s !important; text-decoration: none;
+  border-radius: 2px;
+}
+.btn-nav:hover { background: var(--amber-dim) !important; }
+
+/* ── SHARED ── */
+.container { max-width: 1080px; margin: 0 auto; padding: 0 60px; }
+.label {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+}
+.btn-primary {
+  background: var(--amber); color: var(--white);
+  padding: 14px 32px; font-family: var(--font-display); font-weight: 700;
+  font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: background 0.2s, transform 0.15s; display: inline-block;
+  border-radius: 2px;
+}
+.btn-primary:hover { background: var(--amber-dim); transform: translateY(-1px); }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ── PAGE HERO ── */
+.page-hero {
+  position: relative; min-height: 50vh;
+  display: flex; align-items: center;
+  background: var(--navy);
+  overflow: hidden; padding: 140px 60px 80px;
+}
+.page-hero-bg {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.page-hero-accent {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--amber), var(--amber) 60%, transparent);
+}
+.page-hero-inner {
+  position: relative; z-index: 2;
+  max-width: 1080px; margin: 0 auto; width: 100%;
+}
+.page-hero-eyebrow { display: block; color: var(--amber); margin-bottom: 20px; }
+.page-hero-h1 {
+  font-family: var(--font-display); font-weight: 700;
+  letter-spacing: 0.02em; line-height: 1.05;
+  font-size: clamp(38px, 5vw, 64px);
+  color: var(--white); margin-bottom: 20px;
+}
+.page-hero-sub {
+  font-size: 17px; color: rgba(255,255,255,0.68);
+  line-height: 1.75; max-width: 640px;
+}
+
+/* ── SECTION HEADINGS ── */
+.section-eyebrow { display: block; color: var(--amber); margin-bottom: 14px; }
+.section-h2 {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(32px, 4vw, 48px); line-height: 1.1; letter-spacing: 0.02em;
+  color: var(--navy); margin-bottom: 32px;
+}
+.section-intro {
+  font-size: 17px; color: var(--slate); line-height: 1.75; margin-bottom: 56px;
+  max-width: 640px;
+}
+
+/* ── WHAT ICMG IS ── */
+#organization { background: var(--white); padding: 100px 0; }
+.org-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  align-items: start;
+}
+.org-copy p {
+  font-size: 16px; color: var(--slate); line-height: 1.75; margin-bottom: 20px;
+}
+.org-copy p:last-child { margin-bottom: 0; }
+.stat-stack { display: flex; flex-direction: column; gap: 40px; }
+.stat-item { border-top: 1px solid var(--rule-light); padding-top: 24px; }
+.stat-number {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 48px; line-height: 1; color: var(--amber);
+  letter-spacing: 0.01em; margin-bottom: 6px;
+}
+.stat-label {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--navy);
+}
+
+/* ── CHUCK / PSE INVOLVEMENT ── */
+#involvement { background: var(--off-white); padding: 100px 0; }
+.bio-block { max-width: 760px; }
+.bio-block p {
+  font-size: 16px; color: var(--slate); line-height: 1.75; margin-bottom: 20px;
+}
+.bio-block p:last-child { margin-bottom: 0; }
+.cred-badges {
+  display: flex; gap: 16px; flex-wrap: wrap; margin-top: 48px;
+}
+.cred-badge {
+  background: var(--white);
+  border-top: 3px solid var(--amber);
+  padding: 16px 20px;
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 13px; letter-spacing: 0.06em;
+  color: var(--navy); text-transform: uppercase;
+}
+
+/* ── WHY JOIN ── */
+#membership { background: var(--white); padding: 100px 0; }
+.reason-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+}
+.reason-card {
+  background: var(--white); padding: 36px 32px;
+  border-top: 3px solid var(--amber);
+  box-shadow: 0 2px 12px rgba(30,58,95,0.06);
+}
+.reason-title {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 22px; line-height: 1.15; letter-spacing: 0.02em;
+  color: var(--navy); margin-bottom: 12px;
+}
+.reason-body { font-size: 15px; color: var(--slate); line-height: 1.7; }
+
+/* ── CONFERENCE STRIP ── */
+#conference { background: var(--off-white); padding: 100px 0; }
+.conf-panel {
+  background: var(--white);
+  border-top: 3px solid var(--amber);
+  box-shadow: 0 2px 12px rgba(30,58,95,0.06);
+  padding: 48px 44px;
+  display: grid; grid-template-columns: 1.4fr 1fr; gap: 56px;
+  align-items: center;
+}
+.conf-copy p { font-size: 16px; color: var(--slate); line-height: 1.75; margin-bottom: 18px; }
+.conf-copy p:last-child { margin-bottom: 0; }
+.conf-title {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 30px; line-height: 1.1; letter-spacing: 0.02em;
+  color: var(--navy); margin-bottom: 16px;
+}
+.conf-detail { border-left: 3px solid var(--amber); padding-left: 24px; }
+.conf-date {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 34px; line-height: 1.05; color: var(--navy);
+  letter-spacing: 0.02em; margin-bottom: 8px;
+}
+.conf-place {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--slate-light);
+  margin-bottom: 28px;
+}
+
+/* ── CTA SECTION ── */
+#cta {
+  background: var(--navy); padding: 100px 0;
+  position: relative; overflow: hidden;
+}
+.cta-inner { text-align: center; max-width: 680px; margin: 0 auto; padding: 0 40px; position: relative; z-index: 2; }
+.cta-title {
+  font-family: var(--font-display); font-weight: 700; line-height: 1.1;
+  letter-spacing: 0.02em; font-size: clamp(32px, 4vw, 48px);
+  color: var(--white); margin-bottom: 20px;
+}
+.cta-body { font-size: 17px; color: rgba(255,255,255,0.7); line-height: 1.75; margin-bottom: 40px; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--navy-deep); border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 36px 60px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-copy { font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.35); letter-spacing: 0.06em; }
+.footer-links { display: flex; gap: 28px; }
+.footer-links a { font-size: 13px; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--amber); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .page-hero { padding: 120px 24px 64px; }
+  .container { padding: 0 24px; }
+  .org-grid { grid-template-columns: 1fr; gap: 48px; }
+  .stat-stack { flex-direction: row; flex-wrap: wrap; gap: 24px; }
+  .stat-item { flex: 1 1 120px; }
+  .reason-grid { grid-template-columns: 1fr; }
+  .conf-panel { grid-template-columns: 1fr; gap: 36px; padding: 36px 28px; }
+  .cred-badges { gap: 12px; }
+  #cta { padding: 64px 0; }
+  footer { padding: 36px 24px; flex-direction: column; gap: 20px; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="PSE-Secondary-DK-BK.png" alt="Problem Solving Enterprises" style="height:52px;width:auto;">
+  </a>
+  <ul class="nav-links">
+    <li><a href="services.html">Services</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="icmg.html">ICMG</a></li>
+    <li><a href="#cta" class="btn-nav">Schedule a Call</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-accent"></div>
+  <div class="page-hero-inner">
+    <span class="label page-hero-eyebrow">Industry Involvement</span>
+    <h1 class="page-hero-h1">Where the industry's<br>partnerships get made.</h1>
+    <p class="page-hero-sub">The Inter-Company Marketing Group has spent four decades bringing insurance and financial services companies together to build the alliances that grow their businesses. PSE has been part of it for fifteen years.</p>
+  </div>
+</section>
+
+<!-- WHAT ICMG IS -->
+<section id="organization">
+  <div class="container">
+    <div class="reveal">
+      <span class="label section-eyebrow">The Organization</span>
+      <h2 class="section-h2">What ICMG is.</h2>
+    </div>
+    <div class="org-grid">
+      <div class="org-copy reveal">
+        <p>ICMG is a non-profit association built around a straightforward observation: most meaningful growth in insurance and financial services happens through partnerships, and partnerships happen between people who already know each other. It has been doing that work for more than forty years.</p>
+        <p>Its members are the people who make those deals — executives and business development leaders at insurance carriers, distributors and marketing organizations, third-party administrators, and the companies that support the life, health, and Medicare markets. They join to meet counterparts they wouldn't otherwise cross paths with, to compare notes on what's actually working, and to find partners for new products and new distribution.</p>
+        <p>It is a deliberately small community for an industry this size. That's the point. Members who show up consistently become known quantities, and the introductions start coming to them.</p>
+      </div>
+      <div class="stat-stack reveal reveal-delay-1">
+        <div class="stat-item">
+          <div class="stat-number">40+</div>
+          <div class="stat-label">Years Building Alliances</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">500+</div>
+          <div class="stat-label">Member Executives</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">15</div>
+          <div class="stat-label">Years of PSE Membership</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PSE'S INVOLVEMENT -->
+<section id="involvement">
+  <div class="container">
+    <div class="reveal">
+      <span class="label section-eyebrow">PSE at ICMG</span>
+      <h2 class="section-h2">Fifteen years in the room.</h2>
+    </div>
+    <div class="bio-block reveal">
+      <p>Chuck Ritzke has been an ICMG member for fifteen years. He spent [YEARS] years on the board of directors and served as president of the organization in [YEAR].</p>
+      <p>That involvement isn't a line on a bio. It's fifteen years of watching how partnerships in this industry actually come together — which carriers are serious about a category, which distributors can execute, and where the openings tend to be before they're obvious. Chuck has sat on the side of the table that evaluates those opportunities and on the side that organizes the room where they happen.</p>
+      <p>For PSE clients, that translates into something practical. When a product idea needs a distribution partner, or a block needs a buyer, or a carrier needs to know who else has solved a problem like theirs, the answer often starts with a phone call to someone Chuck has known for a decade.</p>
+      <div class="cred-badges">
+        <div class="cred-badge">15 Years a Member</div>
+        <div class="cred-badge">Board of Directors</div>
+        <div class="cred-badge">Past President</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY JOIN -->
+<section id="membership">
+  <div class="container">
+    <div class="reveal">
+      <span class="label section-eyebrow">Membership</span>
+      <h2 class="section-h2">Why it's worth joining.</h2>
+      <p class="section-intro">If your growth depends on partnerships, ICMG is the shortest path to the people who can approve them.</p>
+    </div>
+    <div class="reason-grid">
+      <div class="reason-card reveal">
+        <div class="reason-title">The room is decision-makers</div>
+        <p class="reason-body">Members are senior enough to say yes. You aren't spending two years working your way up to the person who can actually do the deal — they're already at the table.</p>
+      </div>
+      <div class="reason-card reveal reveal-delay-1">
+        <div class="reason-title">The format is built for connecting</div>
+        <p class="reason-body">Member introductions, scheduled one-on-one meetings, and a networking hall designed so you can find specific people instead of wandering past booths hoping to get lucky.</p>
+      </div>
+      <div class="reason-card reveal reveal-delay-2">
+        <div class="reason-title">Relationships compound</div>
+        <p class="reason-body">Members who keep showing up build a network that pays off for years. The people you meet in your first year are the ones you call in your fifth.</p>
+      </div>
+      <div class="reason-card reveal reveal-delay-3">
+        <div class="reason-title">You'll be known</div>
+        <p class="reason-body">A community of a few hundred is small enough to have a reputation in. Attend consistently and people know your name, your company, and what you're looking for.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE CONFERENCE -->
+<section id="conference">
+  <div class="container">
+    <div class="reveal">
+      <span class="label section-eyebrow">The Annual Conference</span>
+      <h2 class="section-h2">One event a year. It's the one that counts.</h2>
+    </div>
+    <div class="conf-panel reveal">
+      <div class="conf-copy">
+        <div class="conf-title">Three days of getting the right people in front of each other.</div>
+        <p>The ICMG Annual Conference is where the year's introductions get made. Attendees deliver short opening introductions to the full room, book one-on-one meetings in advance, work the networking hall, and sit in on sessions covering what's moving in the life, health, and Medicare markets.</p>
+        <p>It has a reputation among people who've attended for years as the best networking conference in the industry. That reputation is the reason PSE keeps going back.</p>
+      </div>
+      <div class="conf-detail">
+        <div class="conf-date">February 1&ndash;3<br>2027</div>
+        <div class="conf-place">Scottsdale, Arizona</div>
+        <a href="https://icmg.org" target="_blank" rel="noopener" class="btn-primary">Visit ICMG.org</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING CTA -->
+<section id="cta">
+  <div class="page-hero-bg"></div>
+  <div class="container">
+  <div class="cta-inner reveal">
+    <span class="label" style="color:var(--amber);display:block;margin-bottom:20px;">Let's talk</span>
+    <h2 class="cta-title">Thinking about attending?</h2>
+    <p class="cta-body">If you're weighing an ICMG membership or planning your first conference, Chuck is happy to tell you what to expect and who you ought to meet. It's a short conversation that tends to save people a year of figuring it out themselves.</p>
+    <a href="#calendly" class="btn-primary" style="font-size:15px;padding:16px 40px;">Schedule a Call</a>
+  </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">© 2026 Problem Solving Enterprises · Chicago, IL</div>
+  <div class="footer-links">
+    <a href="services.html">Services</a>
+    <a href="about.html">About</a>
+    <a href="icmg.html">ICMG</a>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

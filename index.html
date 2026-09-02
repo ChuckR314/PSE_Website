@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Problem Solving Enterprises</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:        #1E3A5F;
+  --navy-deep:   #0F1F33;
+  --navy-mid:    #254878;
+  --amber:       #E8A020;
+  --amber-dim:   #B87D10;
+  --amber-light: #FDF3CC;
+  --off-white:   #F5F6F8;
+  --white:       #FFFFFF;
+  --slate:       #4A5568;
+  --slate-light: #718096;
+  --rule-light:  rgba(30,58,95,0.10);
+  --rule-dark:   rgba(255,255,255,0.10);
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-body:    'Barlow', sans-serif;
+  --font-mono:    'IBM Plex Mono', monospace;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--slate);
+  background: var(--white);
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--navy-deep);
+  border-bottom: 1px solid var(--rule-dark);
+  padding: 0 60px;
+  height: 80px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo { text-decoration: none; display: flex; align-items: center; }
+.nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+.nav-links a {
+  font-family: var(--font-body); font-size: 15px; font-weight: 500;
+  color: rgba(255,255,255,0.65); text-decoration: none;
+  letter-spacing: 0.02em; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--white); }
+.btn-nav {
+  background: var(--amber); color: var(--white) !important;
+  padding: 9px 22px;
+  font-family: var(--font-display) !important;
+  font-weight: 700 !important; font-size: 13px !important;
+  letter-spacing: 0.08em !important; text-transform: uppercase;
+  transition: background 0.2s !important; text-decoration: none;
+  border-radius: 2px;
+}
+.btn-nav:hover { background: var(--amber-dim) !important; }
+
+/* ── SHARED ── */
+.container { max-width: 1080px; margin: 0 auto; padding: 0 60px; }
+.label {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+}
+.label-light { color: var(--amber); }
+.label-dark  { color: var(--amber-dim); }
+.section-h2 {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(32px, 4vw, 48px); line-height: 1.1; letter-spacing: 0.02em;
+}
+.section-h2-light { color: var(--white); }
+.section-h2-dark  { color: var(--navy); }
+.btn-primary {
+  background: var(--amber); color: var(--white);
+  padding: 14px 32px; font-family: var(--font-display); font-weight: 700;
+  font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: background 0.2s, transform 0.15s; display: inline-block;
+  border-radius: 2px;
+}
+.btn-primary:hover { background: var(--amber-dim); transform: translateY(-1px); }
+.btn-outline {
+  background: transparent; color: var(--navy);
+  padding: 13px 28px; font-family: var(--font-display); font-weight: 700;
+  font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+  text-decoration: none; border: 2px solid var(--navy);
+  transition: background 0.2s, color 0.2s; display: inline-block;
+  border-radius: 2px;
+}
+.btn-outline:hover { background: var(--navy); color: var(--white); }
+.btn-ghost {
+  color: rgba(255,255,255,0.7); font-size: 14px; font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.25); padding-bottom: 2px;
+  letter-spacing: 0.02em; transition: color 0.2s, border-color 0.2s;
+}
+.btn-ghost:hover { color: var(--white); border-color: var(--amber); }
+
+/* ── HERO — dark navy with grid ── */
+#hero {
+  position: relative; min-height: 100vh;
+  display: flex; align-items: center;
+  background: var(--navy);
+  overflow: hidden; padding: 120px 60px 80px;
+}
+.hero-bg-lines {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.hero-accent-line {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--amber), var(--amber) 60%, transparent);
+}
+.hero-inner {
+  position: relative; z-index: 2;
+  max-width: 1080px; margin: 0 auto; width: 100%;
+  display: grid; grid-template-columns: 1fr 440px; gap: 80px; align-items: center;
+}
+.hero-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.hero-eyebrow .label { color: var(--white); }
+.hero-h1 {
+  font-family: var(--font-display); font-weight: 700;
+  letter-spacing: 0.02em; line-height: 1.05;
+  font-size: clamp(44px, 6vw, 72px);
+  color: var(--white); margin-bottom: 24px;
+}
+.hero-h1 em { color: var(--amber); font-style: normal; }
+.hero-sub {
+  font-size: 17px; color: rgba(255,255,255,0.68);
+  line-height: 1.75; max-width: 540px; margin-bottom: 40px;
+}
+.hero-ctas { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.hero-diagram {
+  border: 1px solid rgba(255,255,255,0.1);
+  border-top: 3px solid var(--amber);
+  background: rgba(15,31,51,0.8);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  padding: 36px 32px;
+  display: flex; flex-direction: column; gap: 0;
+}
+.hero-diagram-label {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em;
+  color: var(--amber); text-transform: uppercase; margin-bottom: 20px;
+}
+.diagram-branch { padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.diagram-branch:last-child { border-bottom: none; padding-bottom: 0; }
+.diagram-branch-title {
+  font-family: var(--font-display); font-size: 21px; font-weight: 700;
+  color: var(--white); letter-spacing: 0.03em; margin-bottom: 6px;
+  display: flex; align-items: center; gap: 10px;
+}
+.diagram-branch-title::before {
+  content: ''; width: 6px; height: 6px;
+  background: var(--amber); transform: rotate(45deg); flex-shrink: 0;
+}
+.diagram-branch-note {
+  font-family: var(--font-body); font-size: 13px; line-height: 1.5;
+  color: rgba(255,255,255,0.55);
+  padding-left: 16px; margin-bottom: 12px;
+}
+.diagram-branch-items { padding-left: 16px; display: flex; flex-direction: column; gap: 7px; }
+.diagram-branch-item {
+  font-size: 13px; color: rgba(255,255,255,0.72);
+  font-family: var(--font-mono); letter-spacing: 0.02em;
+  display: flex; align-items: center; gap: 8px;
+}
+.diagram-branch-item::before {
+  content: '—'; color: rgba(232,160,32,0.4); font-size: 10px;
+}
+.diagram-connector { width: 1px; height: 14px; background: rgba(232,160,32,0.25); margin-left: 2px; }
+
+/* ── AUDIENCES — clean white ── */
+#audiences { background: var(--white); padding: 100px 0; border-top: 1px solid var(--rule-light); }
+.section-header { margin-bottom: 56px; }
+.audience-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+}
+.audience-card {
+  background: var(--off-white); padding: 40px 32px;
+  border-top: 3px solid transparent;
+  border-radius: 2px; transition: border-color 0.25s, box-shadow 0.25s;
+}
+.audience-card:hover { border-top-color: var(--amber); box-shadow: 0 4px 24px rgba(30,58,95,0.10); }
+.audience-icon {
+  width: 44px; height: 44px; border: 1.5px solid var(--navy-mid);
+  display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
+}
+.audience-icon svg { width: 20px; height: 20px; fill: none; stroke: var(--navy); stroke-width: 1.5; }
+.audience-title {
+  font-family: var(--font-display); font-size: clamp(20px, 2.5vw, 26px);
+  font-weight: 700; line-height: 1.15; letter-spacing: 0.03em;
+  color: var(--navy); margin-bottom: 12px;
+}
+.audience-body { font-size: 15px; color: var(--slate); line-height: 1.7; }
+/* .audience-link — currently unused; reserved for future case-studies page */
+.audience-link {
+  font-family: var(--font-mono); font-size: 11px; color: var(--navy-mid);
+  text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase;
+  display: flex; align-items: center; gap: 8px; transition: gap 0.2s, color 0.2s;
+}
+.audience-link:hover { gap: 14px; color: var(--amber-dim); }
+.audience-link::after { content: '→'; }
+
+/* ── DIFFERENTIATION — navy ── */
+#differentiation { background: var(--navy); padding: 100px 0; }
+.diff-inner { display: grid; grid-template-columns: 5fr 4fr; gap: 80px; align-items: start; }
+.diff-left .section-label { color: var(--amber); margin-bottom: 12px; display: block; }
+.diff-left h2 { color: var(--white); margin-bottom: 28px; }
+.diff-left p { font-size: 16px; color: rgba(255,255,255,0.68); line-height: 1.75; margin-bottom: 20px; }
+.diff-left p strong { color: var(--white); font-weight: 600; }
+.credentials-block { display: flex; flex-direction: column; gap: 2px; margin-top: 4px; }
+.cred-item {
+  background: rgba(255,255,255,0.05); border-left: 3px solid transparent;
+  padding: 18px 20px;
+}
+.cred-title {
+  font-family: var(--font-display); font-size: 13px; font-weight: 700;
+  color: var(--white); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px;
+}
+.cred-body { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+.btn-light {
+  background: var(--white); color: var(--navy);
+  padding: 13px 28px; font-family: var(--font-display); font-weight: 700;
+  font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+  text-decoration: none; transition: background 0.2s; display: inline-block;
+  margin-top: 8px; border-radius: 2px;
+}
+.btn-light:hover { background: var(--amber-light); }
+
+/* ── SERVICES — off-white ── */
+#services { background: var(--off-white); padding: 100px 0; }
+.services-section-header { margin-bottom: 56px; }
+.services-section-header .label { margin-bottom: 12px; display: block; }
+.services-section-title {
+  font-family: var(--font-display); font-weight: 700;
+  letter-spacing: 0.02em; line-height: 1.1;
+  font-size: clamp(32px, 4vw, 48px); color: var(--navy);
+}
+.branches-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.branch {
+  background: var(--white); padding: 48px 40px;
+  border-top: 3px solid var(--amber);
+  box-shadow: 0 2px 16px rgba(30,58,95,0.07);
+  display: flex; flex-direction: column; gap: 0;
+}
+.branch-eyebrow {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--slate-light); margin-bottom: 14px;
+}
+.branch-title {
+  font-family: var(--font-display); font-size: clamp(20px, 2.5vw, 26px);
+  font-weight: 700; line-height: 1.15; color: var(--navy);
+  letter-spacing: 0.03em; margin-bottom: 8px;
+}
+.branch-rule { width: 32px; height: 2px; background: var(--amber); margin-bottom: 20px; }
+.branch-body { font-size: 15px; color: var(--slate); line-height: 1.7; margin-bottom: 28px; flex: 1; }
+.branch-services { display: flex; flex-direction: column; gap: 2px; margin-bottom: 28px; }
+.branch-service-item {
+  background: var(--off-white); padding: 14px 16px;
+  border-left: 2px solid var(--rule-light);
+}
+.branch-service-name {
+  font-family: var(--font-display); font-size: 15px; font-weight: 600;
+  color: var(--navy); letter-spacing: 0.03em; margin-bottom: 3px;
+}
+.branch-service-desc { font-size: 13px; color: var(--slate-light); line-height: 1.5; }
+.branch-link {
+  font-family: var(--font-mono); font-size: 11px; color: var(--navy-mid);
+  text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase;
+  display: flex; align-items: center; gap: 8px; transition: gap 0.2s, color 0.2s;
+  align-self: flex-start;
+}
+.branch-link:hover { gap: 14px; color: var(--amber-dim); }
+.branch-link::after { content: '→'; }
+
+/* ── PROOF — white ── */
+#proof { background: var(--white); padding: 100px 0; border-top: 1px solid var(--rule-light); }
+.proof-tabs { display: flex; gap: 2px; margin-bottom: 2px; }
+.proof-tab {
+  background: var(--off-white); border: none; cursor: pointer;
+  font-family: var(--font-display); font-size: 13px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--slate); padding: 12px 28px; transition: background 0.2s, color 0.2s;
+}
+.proof-tab.active { background: var(--navy); color: var(--white); }
+.proof-tab:hover:not(.active) { background: rgba(30,58,95,0.08); }
+.proof-panel {
+  background: var(--off-white); border-left: 3px solid var(--amber);
+  padding: 40px 40px 36px; display: none;
+}
+.proof-panel.active { display: block; }
+.proof-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.proof-list li {
+  padding: 14px 0; font-size: 15px; color: var(--slate); line-height: 1.6;
+  border-bottom: 1px solid var(--rule-light);
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.proof-list li:nth-last-child(-n+2) { border-bottom: none; }
+.proof-list li::before {
+  content: ''; width: 4px; height: 4px; background: var(--amber);
+  border-radius: 50%; margin-top: 9px; flex-shrink: 0;
+}
+.proof-list li:nth-child(odd) { padding-right: 32px; }
+
+/* ── TESTIMONIALS — navy ── */
+#testimonials { background: var(--navy); padding: 100px 0; }
+.testimonials-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+}
+.testimonial-card {
+  background: rgba(255,255,255,0.05); padding: 44px 40px;
+  border-top: 3px solid var(--amber);
+}
+.quote-glyph {
+  font-family: Georgia, serif; font-size: 64px; line-height: 0.6;
+  color: var(--amber); opacity: 0.5; margin-bottom: 24px; display: block;
+}
+.testimonial-text {
+  font-size: 16px; color: rgba(255,255,255,0.75);
+  line-height: 1.75; font-style: italic; margin-bottom: 28px;
+}
+.testimonial-rule { width: 32px; height: 1px; background: var(--amber); margin-bottom: 14px; }
+.testimonial-name {
+  font-family: var(--font-display); font-size: 15px; font-weight: 600;
+  color: var(--white); letter-spacing: 0.04em; margin-bottom: 4px;
+}
+.testimonial-title { font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; }
+
+/* ── CLOSING CTA — off-white with grid accent ── */
+#cta { background: var(--off-white); padding: 100px 0; border-top: 1px solid var(--rule-light); }
+.cta-grid-lines { display: none; }
+.cta-inner { text-align: center; max-width: 680px; margin: 0 auto; padding: 0 40px; }
+.cta-title {
+  font-family: var(--font-display); font-weight: 700; line-height: 1.1;
+  letter-spacing: 0.02em; font-size: clamp(32px, 4vw, 48px);
+  color: var(--navy); margin-bottom: 20px;
+}
+.cta-body { font-size: 17px; color: var(--slate); line-height: 1.75; margin-bottom: 40px; }
+.cta-disclaimer {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--slate-light); letter-spacing: 0.08em;
+  margin-top: 16px; text-transform: uppercase;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--navy-deep); border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 36px 60px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-copy { font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.35); letter-spacing: 0.06em; }
+.footer-links { display: flex; gap: 28px; }
+.footer-links a { font-size: 13px; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--amber); }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+  .audience-grid, .branches-grid, .testimonials-grid { grid-template-columns: 1fr; }
+  .diff-inner { grid-template-columns: 1fr; gap: 40px; }
+  .proof-list { grid-template-columns: 1fr; }
+  .container { padding: 0 24px; }
+  #hero { padding-left: 24px; padding-right: 24px; }
+  nav, footer { padding-left: 24px; padding-right: 24px; }
+  #hero, #audiences, #differentiation, #services, #proof, #testimonials, #cta { padding-top: 64px; padding-bottom: 64px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="PSE-Secondary-DK-BK.png" alt="Problem Solving Enterprises" style="height:52px;width:auto;">
+  </a>
+  <ul class="nav-links">
+    <li><a href="services.html">Services</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="icmg.html">ICMG</a></li>
+    <li><a href="#cta" class="btn-nav">Schedule a Call</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-lines"></div>
+  <div class="hero-accent-line"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">
+        <span class="label" style="color:var(--amber);">Insurance Innovation Since 1995</span>
+      </div>
+      <h1 class="hero-h1">
+        The actuarial expertise<br>behind insurance<br><em>innovation.</em>
+      </h1>
+      <p class="hero-sub">
+        Truly innovating is hard. Regulatory complexity, product risk, and operational reality create obstacles that stall even the best ideas. For 30 years, carriers, distributors, and insurtech companies have turned to PSE — bringing the actuarial depth and execution muscle that makes innovation actually happen.
+      </p>
+      <div class="hero-ctas">
+        <a href="#cta" class="btn-primary">Schedule a Call</a>
+      </div>
+    </div>
+
+    <!-- Diagram replacing stats -->
+    <div class="hero-visual">
+      <div class="hero-diagram">
+        <div class="hero-diagram-label">Two practices · One firm</div>
+        <div class="diagram-branch">
+          <div class="diagram-branch-title">Strategy &amp; Innovation</div>
+          <div class="diagram-branch-note">Led personally by Chuck Ritzke, FSA</div>
+          <div class="diagram-branch-items">
+            <div class="diagram-branch-item">Product design &amp; pricing</div>
+            <div class="diagram-branch-item">Actuarial consulting</div>
+            <div class="diagram-branch-item">Software development</div>
+            <div class="diagram-branch-item">Insurtech advising</div>
+          </div>
+        </div>
+        <div class="diagram-branch">
+          <div class="diagram-branch-title">Operations &amp; Support</div>
+          <div class="diagram-branch-note">Delivered by the PSE team</div>
+          <div class="diagram-branch-items">
+            <div class="diagram-branch-item">Administrative solutions</div>
+            <div class="diagram-branch-item">Compliance &amp; filing</div>
+            <div class="diagram-branch-item">Marketing consulting</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO WE WORK WITH -->
+<section id="audiences">
+  <div class="container">
+    <div class="section-header reveal" style="margin-bottom:56px;">
+      <span class="label" style="color:var(--amber);display:block;margin-bottom:12px;">Who we work with</span>
+      <h2 class="section-h2" style="color:var(--navy);">The work looks different.<br>The challenge is the same.</h2>
+    </div>
+    <div class="audience-grid">
+      <div class="audience-card reveal">
+        <div class="audience-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="1"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        </div>
+        <h3 class="audience-title">Carriers</h3>
+        <p class="audience-body">New product launches, legacy block remediation, regulatory filings, system conversions — the work that has to get done before anything new can move forward. We've been in the engine room with carriers for 40 years.</p>
+      </div>
+      <div class="audience-card reveal reveal-delay-1">
+        <div class="audience-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3 class="audience-title">Distributors &amp; IMOs</h3>
+        <p class="audience-body">You have a product concept that needs actuarial rigor and carrier access to become real. We do the work that gets it across the finish line — and build the tools to support it once it's live.</p>
+      </div>
+      <div class="audience-card reveal reveal-delay-2">
+        <div class="audience-icon">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3 class="audience-title">Insurtech Companies</h3>
+        <p class="audience-body">You're moving fast and the insurance industry isn't built for that. We give you the actuarial credibility, carrier relationships, and operational foundation you need — without slowing you down.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHUCK / DIFFERENTIATION -->
+<section id="differentiation">
+  <div class="container">
+    <div class="diff-inner">
+      <div class="diff-left reveal">
+        <span class="label section-label" style="color:var(--amber);margin-bottom:12px;display:block;">About Chuck Ritzke</span>
+        <h2 class="section-title-dark">A different kind of actuarial partner.</h2>
+        <p>Chuck Ritzke has spent 40 years doing the actuarial work that makes insurance innovation possible — not the visible work, but the <strong>complex, unglamorous, mission-critical work</strong> that happens before anything new can go to market.</p>
+        <p>Product design, pricing, regulatory navigation, financial modeling, carrier negotiations — Chuck has been the driving force behind some of the industry's most innovative products and companies, often working behind the scenes as the expert that made it all viable.</p>
+        <p>When you engage PSE, you get Chuck directly — along with a team built to handle every layer of execution, from concept through compliance.</p>
+        <a href="about.html" class="btn-ghost">Meet Chuck &amp; the team →</a>
+      </div>
+      <div class="credentials-block reveal reveal-delay-2">
+        <div class="cred-item">
+          <div class="cred-title">FSA · MAAA</div>
+          <div class="cred-body">Fellow of the Society of Actuaries and member of the American Academy of Actuaries</div>
+        </div>
+        <div class="cred-item">
+          <div class="cred-title">ICMG — Past President &amp; Board Member</div>
+          <div class="cred-body">Past President and current Board Member of the Intercompany Marketing Group</div>
+        </div>
+        <div class="cred-item">
+          <div class="cred-title">Patented Products</div>
+          <div class="cred-body">Developed patented term life and worksite insurance products with carrier partners</div>
+        </div>
+        <div class="cred-item">
+          <div class="cred-title">SOA Mentor</div>
+          <div class="cred-body">Active participant in the Society of Actuaries insurtech mentoring program</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES — TWO BRANCHES -->
+<section id="services">
+  <div class="container">
+    <div class="services-section-header reveal">
+      <span class="label" style="color:var(--amber);display:block;margin-bottom:12px;">What we do</span>
+      <h2 class="services-section-title">The work behind<br>the work.</h2>
+    </div>
+    <div class="branches-grid">
+
+      <div class="branch reveal">
+        <div class="branch-eyebrow">Actuarial · Strategy</div>
+        <h3 class="branch-title">Actuarial Strategy &amp; Innovation</h3>
+        <div class="branch-rule"></div>
+        <p class="branch-body">The high-stakes, highly complex work that sits at the center of every major insurance innovation. Product design, actuarial pricing, financial modeling, software development — this is where Chuck leads directly, tackling the problems most firms won't touch and turning them into products that work in the real world.</p>
+        <div class="branch-services">
+          <div class="branch-service-item">
+            <div class="branch-service-name">Actuarial Consulting</div>
+            <div class="branch-service-desc">Product design, pricing, risk analysis, and actuarial strategy. 40 years of FSA-level expertise.</div>
+          </div>
+          <div class="branch-service-item">
+            <div class="branch-service-name">Software Development</div>
+            <div class="branch-service-desc">Custom tools for insurance problems that off-the-shelf software can't solve — from planning platforms to illustration engines.</div>
+          </div>
+        </div>
+        <a href="services.html#actuarial" class="branch-link">Explore these services</a>
+      </div>
+
+      <div class="branch reveal reveal-delay-1">
+        <div class="branch-eyebrow">Operations · Support</div>
+        <h3 class="branch-title">Administrative &amp; Operational</h3>
+        <div class="branch-rule"></div>
+        <p class="branch-body">Every innovation project leaves a trail of operational complexity behind it. Compliance filings, legacy block administration, system conversions, ongoing support — the work that's too important to ignore and too time-consuming to staff internally. PSE's operations team takes it on so your people don't have to. These are the dirty jobs. We've been doing them for decades.</p>
+        <div class="branch-services">
+          <div class="branch-service-item">
+            <div class="branch-service-name">Administrative Solutions</div>
+            <div class="branch-service-desc">Compliance, filing, legacy administration, and operational support — handled by a dedicated team with deep institutional knowledge.</div>
+          </div>
+          <div class="branch-service-item">
+            <div class="branch-service-name">Marketing Consulting</div>
+            <div class="branch-service-desc">Connecting great insurance products to the right audience. Most relevant alongside a product development engagement.</div>
+          </div>
+        </div>
+        <a href="services.html#admin" class="branch-link">Explore these services</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section id="proof">
+  <div class="container">
+    <div style="margin-bottom:56px;" class="reveal">
+      <span class="label" style="color:var(--amber);display:block;margin-bottom:12px;">Projects we've managed</span>
+      <h2 class="section-h2" style="color:var(--navy);">Real work. Real results.</h2>
+    </div>
+    <div class="reveal">
+      <div class="proof-tabs">
+        <button class="proof-tab active" onclick="switchTab(event,'carriers')">Carriers</button>
+        <button class="proof-tab" onclick="switchTab(event,'distributors')">Distributors &amp; IMOs</button>
+        <button class="proof-tab" onclick="switchTab(event,'insurtech')">Insurtech</button>
+      </div>
+      <div id="tab-carriers" class="proof-panel active">
+        <ul class="proof-list">
+          <li>Designed and priced patented term life products with accelerated underwriting</li>
+          <li>Guided development of a new UL administrative system and converted 100,000+ policies</li>
+          <li>Designed, priced, and filed a full life insurance product portfolio for a company entering the market for the first time</li>
+          <li>Overhauled variable performance reporting — saving hundreds of thousands in admin costs over 15+ years</li>
+          <li>Solved complex regulatory and administrative issues for closed blocks from the 1980s–1990s</li>
+          <li>Supported multiple carriers with post-issue illustration and actuary requirements</li>
+        </ul>
+      </div>
+      <div id="tab-distributors" class="proof-panel">
+        <ul class="proof-list">
+          <li>Helped brokerage organizations bring new life insurance concepts to carriers</li>
+          <li>Partnered with a leading worksite marketer to launch patented products</li>
+          <li>Created universal applications for large direct-marketing organizations to streamline sales</li>
+          <li>Built post-issue illustration capabilities for administration companies</li>
+        </ul>
+      </div>
+      <div id="tab-insurtech" class="proof-panel">
+        <ul class="proof-list">
+          <li>Guided several start-ups through critical carrier partnership negotiations</li>
+          <li>Quantified the economic value of an underwriting vendor's offering</li>
+          <li>Supported a founder through an IPO for a financial modeling platform</li>
+          <li>Participated in the Society of Actuaries mentoring program for insurtech founders</li>
+          <li>Assessed unique short-term insurance products for an innovative insurtech</li>
+          <li>Managed software development and insurance operations for a mid-market RIA firm</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="container">
+    <div style="margin-bottom:56px;" class="reveal">
+      <span class="label" style="color:var(--amber);display:block;margin-bottom:12px;">Client perspective</span>
+      <h2 class="section-h2" style="color:var(--white);">The results speak for themselves.</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="quote-glyph">"</div>
+        <p class="testimonial-text">Chuck is one of the most creative and brilliant life insurance product minds in our industry. At Fidelity Life, we've worked with Chuck and his team for almost two decades, and he was instrumental in helping us conceive and develop both of our industry leading products. Just as important as the output he delivers, the process of working with Chuck is always such a pleasure. It's working with a friend.</p>
+        <div class="testimonial-rule"></div>
+        <div class="testimonial-name">Jim Harkensee</div>
+        <div class="testimonial-title">Fidelity Life</div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="quote-glyph">"</div>
+        <p class="testimonial-text">Some projects require an actuarial perspective. Some require a financial perspective. All projects require someone with a deep understanding of the strategic goals of the project. A creative problem solver. Someone who can think outside of the box. Chuck Ritzke checks all of these boxes and more.</p>
+        <div class="testimonial-rule"></div>
+        <div class="testimonial-name">Ron Butkiewicz</div>
+        <div class="testimonial-title">Life Co CEO (retired)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING CTA -->
+<section id="cta">
+  <div class="cta-grid-lines"></div>
+  <div class="cta-inner reveal">
+    <span class="label" style="color:var(--amber);display:block;margin-bottom:20px;">Let's talk</span>
+    <h2 class="cta-title">Ready to move your next idea forward?</h2>
+    <p class="cta-body">Whether you're launching a new product, working through a complex regulatory challenge, or looking for an experienced actuarial partner who's been through it before — Chuck and the PSE team are the right call.</p>
+    <a href="contact.html" class="btn-primary" style="font-size:15px;padding:16px 40px;">Schedule a Call</a>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">© 2026 Problem Solving Enterprises · Chicago, IL</div>
+  <div class="footer-links">
+    <a href="services.html">Services</a>
+    <a href="about.html">About</a>
+    <a href="icmg.html">ICMG</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</footer>
+
+<script>
+function switchTab(e, id) {
+  document.querySelectorAll('.proof-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.proof-panel').forEach(p => p.classList.remove('active'));
+  e.target.classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
+}
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

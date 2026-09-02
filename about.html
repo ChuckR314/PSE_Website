@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Problem Solving Enterprises</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:        #1E3A5F;
+  --navy-deep:   #0F1F33;
+  --navy-mid:    #254878;
+  --amber:       #E8A020;
+  --amber-dim:   #B87D10;
+  --amber-light: #FDF3CC;
+  --off-white:   #F5F6F8;
+  --white:       #FFFFFF;
+  --slate:       #4A5568;
+  --slate-light: #718096;
+  --rule-light:  rgba(30,58,95,0.10);
+  --rule-dark:   rgba(255,255,255,0.10);
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-body:    'Barlow', sans-serif;
+  --font-mono:    'IBM Plex Mono', monospace;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--slate);
+  background: var(--white);
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--navy-deep);
+  border-bottom: 1px solid var(--rule-dark);
+  padding: 0 60px;
+  height: 80px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo { text-decoration: none; display: flex; align-items: center; }
+.nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+.nav-links a {
+  font-family: var(--font-body); font-size: 15px; font-weight: 500;
+  color: rgba(255,255,255,0.65); text-decoration: none;
+  letter-spacing: 0.02em; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--white); }
+.btn-nav {
+  background: var(--amber); color: var(--white) !important;
+  padding: 9px 22px;
+  font-family: var(--font-display) !important;
+  font-weight: 700 !important; font-size: 13px !important;
+  letter-spacing: 0.08em !important; text-transform: uppercase;
+  transition: background 0.2s !important; text-decoration: none;
+  border-radius: 2px;
+}
+.btn-nav:hover { background: var(--amber-dim) !important; }
+
+/* ── SHARED ── */
+.container { max-width: 1080px; margin: 0 auto; padding: 0 60px; }
+.label {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+}
+.btn-primary {
+  background: var(--amber); color: var(--white);
+  padding: 14px 32px; font-family: var(--font-display); font-weight: 700;
+  font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: background 0.2s, transform 0.15s; display: inline-block;
+  border-radius: 2px;
+}
+.btn-primary:hover { background: var(--amber-dim); transform: translateY(-1px); }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ── PAGE HERO ── */
+.page-hero {
+  position: relative; min-height: 50vh;
+  display: flex; align-items: center;
+  background: var(--navy);
+  overflow: hidden; padding: 140px 60px 80px;
+}
+.page-hero-bg {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.page-hero-accent {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--amber), var(--amber) 60%, transparent);
+}
+.page-hero-inner {
+  position: relative; z-index: 2;
+  max-width: 1080px; margin: 0 auto; width: 100%;
+}
+.page-hero-eyebrow { display: block; color: var(--amber); margin-bottom: 20px; }
+.page-hero-h1 {
+  font-family: var(--font-display); font-weight: 700;
+  letter-spacing: 0.02em; line-height: 1.05;
+  font-size: clamp(38px, 5vw, 64px);
+  color: var(--white); margin-bottom: 20px;
+}
+.page-hero-sub {
+  font-size: 17px; color: rgba(255,255,255,0.68);
+  line-height: 1.75; max-width: 640px;
+}
+
+/* ── SECTION HEADINGS ── */
+.section-eyebrow { display: block; color: var(--amber); margin-bottom: 14px; }
+.section-h2 {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(32px, 4vw, 48px); line-height: 1.1; letter-spacing: 0.02em;
+  color: var(--navy); margin-bottom: 32px;
+}
+.section-intro {
+  font-size: 17px; color: var(--slate); line-height: 1.75; margin-bottom: 56px;
+  max-width: 640px;
+}
+
+/* ── HISTORY SECTION ── */
+#history { background: var(--white); padding: 100px 0; }
+.history-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  align-items: start;
+}
+.history-copy p {
+  font-size: 16px; color: var(--slate); line-height: 1.75; margin-bottom: 20px;
+}
+.history-copy p:last-child { margin-bottom: 0; }
+.stat-stack { display: flex; flex-direction: column; gap: 40px; }
+.stat-item { border-top: 1px solid var(--rule-light); padding-top: 24px; }
+.stat-number {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 48px; line-height: 1; color: var(--amber);
+  letter-spacing: 0.01em; margin-bottom: 6px;
+}
+.stat-label {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--navy);
+}
+
+/* ── CHUCK BIO SECTION ── */
+#chuck { background: var(--off-white); padding: 100px 0; }
+.bio-block { max-width: 760px; }
+.bio-block p {
+  font-size: 16px; color: var(--slate); line-height: 1.75; margin-bottom: 20px;
+}
+.bio-block p:last-child { margin-bottom: 0; }
+.cred-badges {
+  display: flex; gap: 16px; flex-wrap: wrap; margin-top: 48px;
+}
+.cred-badge {
+  background: var(--white);
+  border-top: 3px solid var(--amber);
+  padding: 16px 20px;
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 13px; letter-spacing: 0.06em;
+  color: var(--navy); text-transform: uppercase;
+}
+
+/* ── TEAM SECTION ── */
+#team { background: var(--white); padding: 100px 0; }
+.team-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+}
+.team-card {
+  background: var(--white);
+  border-top: 3px solid var(--rule-light);
+  padding: 28px 24px;
+}
+.team-name {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 18px; letter-spacing: 0.02em; color: var(--navy);
+  margin-bottom: 4px;
+}
+.team-credential {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.12em; color: var(--amber);
+  margin-bottom: 8px; display: block;
+}
+.team-title {
+  font-family: var(--font-mono); font-size: 12px;
+  letter-spacing: 0.06em; color: var(--slate-light);
+  text-transform: uppercase;
+}
+
+/* ── CTA SECTION ── */
+#cta {
+  background: var(--navy); padding: 100px 0;
+  position: relative; overflow: hidden;
+}
+.cta-inner { text-align: center; max-width: 680px; margin: 0 auto; padding: 0 40px; position: relative; z-index: 2; }
+.cta-title {
+  font-family: var(--font-display); font-weight: 700; line-height: 1.1;
+  letter-spacing: 0.02em; font-size: clamp(32px, 4vw, 48px);
+  color: var(--white); margin-bottom: 20px;
+}
+.cta-body { font-size: 17px; color: rgba(255,255,255,0.7); line-height: 1.75; margin-bottom: 40px; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--navy-deep); border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 36px 60px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-copy { font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.35); letter-spacing: 0.06em; }
+.footer-links { display: flex; gap: 28px; }
+.footer-links a { font-size: 13px; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--amber); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .page-hero { padding: 120px 24px 64px; }
+  .container { padding: 0 24px; }
+  .history-grid { grid-template-columns: 1fr; gap: 48px; }
+  .stat-stack { flex-direction: row; flex-wrap: wrap; gap: 24px; }
+  .stat-item { flex: 1 1 120px; }
+  .team-grid { grid-template-columns: 1fr 1fr; }
+  .cred-badges { gap: 12px; }
+  #cta { padding: 64px 0; }
+  footer { padding: 36px 24px; flex-direction: column; gap: 20px; align-items: flex-start; }
+}
+@media (max-width: 600px) {
+  .team-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="PSE-Secondary-DK-BK.png" alt="Problem Solving Enterprises" style="height:52px;width:auto;">
+  </a>
+  <ul class="nav-links">
+    <li><a href="services.html">Services</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="icmg.html">ICMG</a></li>
+    <li><a href="#cta" class="btn-nav">Schedule a Call</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-accent"></div>
+  <div class="page-hero-inner">
+    <span class="label page-hero-eyebrow">About PSE</span>
+    <h1 class="page-hero-h1">Thirty years of doing<br>the work others won't.</h1>
+    <p class="page-hero-sub">Problem Solving Enterprises was founded in 1995 on a simple premise: the most important work in insurance is often the hardest to staff, the easiest to defer, and the most consequential to get right. We built a firm around doing exactly that work.</p>
+  </div>
+</section>
+
+<!-- COMPANY INTRODUCTION & HISTORY -->
+<section id="history">
+  <div class="container">
+    <div class="reveal">
+      <span class="label section-eyebrow">Our Story</span>
+      <h2 class="section-h2">Built for the problems no one else wants.</h2>
+    </div>
+    <div class="history-grid">
+      <div class="history-copy reveal">
+        <p>Problem Solving Enterprises was founded in 1995 by Chuck Ritzke with a deliberate focus on the kinds of insurance work that demand deep expertise, genuine patience, and an institutional tolerance for complexity. Not the high-profile projects that come with large teams and short timelines, but the unglamorous, critical work that keeps insurance products functioning and compliant across decades of regulatory change and market evolution.</p>
+        <p>That founding philosophy has never changed. The insurance industry generates an enormous amount of work that doesn't fit neatly inside a carrier's internal capabilities — legacy blocks that need ongoing administration, product ideas that need actuarial development and regulatory navigation, operational systems that need conversion and modernization. PSE was built to take on exactly those engagements, and to do them with the same rigor we'd apply to any product launch or strategic initiative.</p>
+        <p>Over thirty years, PSE has grown into a full-service consulting firm spanning actuarial strategy, product design, software development, compliance and regulatory operations, and marketing support. The work looks different across those practices — but the standard of precision and accountability is the same in every engagement we take.</p>
+      </div>
+      <div class="stat-stack reveal reveal-delay-1">
+        <div class="stat-item">
+          <div class="stat-number">1995</div>
+          <div class="stat-label">Founded</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">30+</div>
+          <div class="stat-label">Years Industry Experience</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">40+</div>
+          <div class="stat-label">Years Actuarial Depth</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">100k+</div>
+          <div class="stat-label">Policies Converted</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHUCK BIO -->
+<section id="chuck">
+  <div class="container">
+    <div class="reveal">
+      <span class="label section-eyebrow">Founder</span>
+      <h2 class="section-h2">Chuck Ritzke, FSA, MAAA</h2>
+    </div>
+    <div class="bio-block reveal">
+      <p>Chuck Ritzke has more than 40 years of actuarial experience in life insurance, with a career focused on the intersection of product development, actuarial rigor, software development, and the kind of general problem-solving that doesn't fit inside a single discipline. He has spent four decades working on the problems carriers bring when they've run out of simpler options — new product development, complex regulatory challenges, legacy system modernization, and strategic engagements that require someone who's seen enough to know what they don't know.</p>
+      <p>Prior to founding PSE in 1995, Chuck held actuarial, marketing, and administration management roles at Zurich Life and Bankers Life and Casualty. That combination of actuarial depth and operational management experience is what differentiates how PSE approaches consulting — not as a pure actuarial practice or a pure strategy firm, but as a firm that understands both the technical and organizational dimensions of how insurance actually works.</p>
+      <p>Chuck is a Fellow of the Society of Actuaries (FSA) and a Member of the American Academy of Actuaries (MAAA). He has been actively involved in committee work within both organizations throughout his career and currently serves on the Board of Directors of the Insurance and Creative Marketing Group (ICMG). He has also participated in the SOA's insurtech mentor program, working with technology founders navigating the actuarial and regulatory complexities of building in the insurance space.</p>
+      <p>Chuck attended Rockford College (B.S. in Mathematics), Louisiana State University (graduate work in Mathematics), and the University of Illinois (M.S. in Mathematics). During his career he has developed two patented insurance product innovations in partnership with carrier clients — both of which are currently in the market.</p>
+      <div class="cred-badges">
+        <div class="cred-badge">FSA · MAAA</div>
+        <div class="cred-badge">ICMG Board Member</div>
+        <div class="cred-badge">Patented Products</div>
+        <div class="cred-badge">SOA Mentor</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="container">
+    <div class="reveal">
+      <span class="label section-eyebrow">The Team</span>
+      <h2 class="section-h2">The people behind the work.</h2>
+      <p class="section-intro">PSE's team brings together decades of specialized expertise across actuarial science, compliance, operations, and client relations.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="team-name">Doug Robbins</div>
+        <span class="team-credential">FSA</span>
+        <div class="team-title">Consulting Actuary</div>
+      </div>
+      <div class="team-card reveal reveal-delay-1">
+        <div class="team-name">Heidi Zona</div>
+        <span class="team-credential">ASA</span>
+        <div class="team-title">Consulting Actuary</div>
+      </div>
+      <div class="team-card reveal reveal-delay-2">
+        <div class="team-name">Barb Ritzke</div>
+        <div class="team-title">New Business &amp; Client Relations</div>
+      </div>
+      <div class="team-card reveal reveal-delay-3">
+        <div class="team-name">Deb Howver</div>
+        <div class="team-title">Compliance Analyst</div>
+      </div>
+      <div class="team-card reveal reveal-delay-1">
+        <div class="team-name">Kim Schuring</div>
+        <div class="team-title">Business Administration</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING CTA -->
+<section id="cta">
+  <div class="page-hero-bg"></div>
+  <div class="container">
+  <div class="cta-inner reveal">
+    <span class="label" style="color:var(--amber);display:block;margin-bottom:20px;">Let's talk</span>
+    <h2 class="cta-title">Ready to move your next idea forward?</h2>
+    <p class="cta-body">Whether you're launching a new product, working through a complex regulatory challenge, or looking for an experienced actuarial partner who's been through it before — Chuck and the PSE team are the right call.</p>
+    <a href="#calendly" class="btn-primary" style="font-size:15px;padding:16px 40px;">Schedule a Call</a>
+  </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">© 2026 Problem Solving Enterprises · Chicago, IL</div>
+  <div class="footer-links">
+    <a href="services.html">Services</a>
+    <a href="about.html">About</a>
+    <a href="icmg.html">ICMG</a>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
