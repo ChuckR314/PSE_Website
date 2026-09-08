@@ -254,20 +254,21 @@ footer {
 /* ── SERVICES SUB-NAV ── */
 .services-subnav {
   position: sticky; top: 80px; z-index: 99;
-  background: var(--navy);
+  background: var(--white);
+  box-shadow: 0 1px 0 var(--rule-light);
   display: flex; justify-content: center;
   padding: 16px 60px;
 }
 .subnav-pill {
   display: inline-flex;
-  border: 2px solid rgba(255,255,255,0.3);
+  border: 2px solid var(--navy);
   border-radius: 999px;
   overflow: hidden;
 }
 .subnav-link {
   font-family: var(--font-mono); font-size: 11px;
   letter-spacing: 0.12em; text-transform: uppercase;
-  color: rgba(255,255,255,0.65); text-decoration: none;
+  color: var(--navy); text-decoration: none;
   padding: 10px 32px;
   background: transparent;
   cursor: pointer;
@@ -275,11 +276,11 @@ footer {
   /* hover handled by CSS only, active handled by JS class only */
   transition: background 0.15s, color 0.15s;
 }
-.subnav-link + .subnav-link { border-left: 2px solid rgba(255,255,255,0.3); }
+.subnav-link + .subnav-link { border-left: 2px solid var(--navy); }
 /* Hover: only the hovered segment reacts */
 .subnav-link:not(.active):hover {
-  background: rgba(232,160,32,0.18);
-  color: var(--amber);
+  background: var(--amber-light);
+  color: var(--navy);
 }
 /* Active: solid amber fill — driven by JS scroll observer only */
 .subnav-link.active {
