@@ -254,21 +254,20 @@ footer {
 /* ── SERVICES SUB-NAV ── */
 .services-subnav {
   position: sticky; top: 80px; z-index: 99;
-  background: var(--white);
-  box-shadow: 0 2px 8px rgba(30,58,95,0.07);
+  background: var(--navy);
   display: flex; justify-content: center;
   padding: 16px 60px;
 }
 .subnav-pill {
   display: inline-flex;
-  border: 2px solid var(--navy);
+  border: 2px solid rgba(255,255,255,0.3);
   border-radius: 999px;
   overflow: hidden;
 }
 .subnav-link {
   font-family: var(--font-mono); font-size: 11px;
   letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--navy); text-decoration: none;
+  color: rgba(255,255,255,0.65); text-decoration: none;
   padding: 10px 32px;
   background: transparent;
   cursor: pointer;
@@ -276,19 +275,19 @@ footer {
   /* hover handled by CSS only, active handled by JS class only */
   transition: background 0.15s, color 0.15s;
 }
-.subnav-link + .subnav-link { border-left: 2px solid var(--navy); }
+.subnav-link + .subnav-link { border-left: 2px solid rgba(255,255,255,0.3); }
 /* Hover: only the hovered segment reacts */
 .subnav-link:not(.active):hover {
-  background: var(--amber-light);
-  color: var(--navy);
+  background: rgba(232,160,32,0.18);
+  color: var(--amber);
 }
-/* Active: solid navy fill — driven by JS scroll observer only */
+/* Active: solid amber fill — driven by JS scroll observer only */
 .subnav-link.active {
-  background: var(--navy);
-  color: var(--white);
+  background: var(--amber);
+  color: var(--navy-deep);
 }
-/* Hover on active segment: slightly lighter navy so hover is still visible */
-.subnav-link.active:hover { background: var(--navy-mid); }
+/* Hover on active segment: slightly darker amber */
+.subnav-link.active:hover { background: var(--amber-dim); }
 @media (max-width: 900px) {
   .services-subnav { padding: 16px 24px; }
   .subnav-link { padding: 10px 20px; }
@@ -330,7 +329,7 @@ footer {
 </div>
 
 <!-- ACTUARIAL STRATEGY & INNOVATION -->
-<section id="actuarial" style="background:var(--white); padding: 80px 0;">
+<section id="actuarial" style="background:var(--white); padding: 80px 0; scroll-margin-top: 156px;">
   <div class="container">
     <div class="svc-header reveal">
       <h2 class="svc-h2">Strategic Advisory</h2>
@@ -423,7 +422,7 @@ footer {
 </div>
 
 <!-- ADMINISTRATIVE & OPERATIONAL -->
-<section id="admin" style="background:var(--off-white); padding: 80px 0;">
+<section id="admin" style="background:var(--off-white); padding: 80px 0; scroll-margin-top: 156px;">
   <div class="container">
     <div class="svc-header reveal">
       <h2 class="svc-h2">Operational Execution</h2>
