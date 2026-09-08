@@ -254,34 +254,45 @@ footer {
 /* ── SERVICES SUB-NAV ── */
 .services-subnav {
   position: sticky; top: 80px; z-index: 99;
-  background: var(--navy-deep);
-  border-bottom: 2px solid rgba(255,255,255,0.08);
-  padding: 0 60px;
+  background: var(--white);
+  box-shadow: 0 2px 8px rgba(30,58,95,0.07);
+  display: flex; justify-content: center;
+  padding: 16px 60px;
 }
-.services-subnav .container { display: flex; gap: 8px; padding: 12px 0; }
+.subnav-pill {
+  display: inline-flex;
+  border: 2px solid var(--navy);
+  border-radius: 999px;
+  overflow: hidden;
+}
 .subnav-link {
   font-family: var(--font-mono); font-size: 11px;
   letter-spacing: 0.12em; text-transform: uppercase;
-  color: rgba(255,255,255,0.6); text-decoration: none;
-  padding: 8px 18px;
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 2px;
-  background: rgba(255,255,255,0.04);
-  transition: color 0.2s, background 0.2s, border-color 0.2s;
-  display: inline-block;
+  color: var(--navy); text-decoration: none;
+  padding: 10px 32px;
+  background: transparent;
   cursor: pointer;
+  white-space: nowrap;
+  /* hover handled by CSS only, active handled by JS class only */
+  transition: background 0.15s, color 0.15s;
 }
-.subnav-link:hover {
-  color: var(--amber);
-  background: rgba(232,160,32,0.1);
-  border-color: var(--amber);
+.subnav-link + .subnav-link { border-left: 2px solid var(--navy); }
+/* Hover: only the hovered segment reacts */
+.subnav-link:not(.active):hover {
+  background: var(--amber-light);
+  color: var(--navy);
 }
+/* Active: solid navy fill — driven by JS scroll observer only */
 .subnav-link.active {
-  color: var(--amber);
-  background: rgba(232,160,32,0.12);
-  border-color: var(--amber);
+  background: var(--navy);
+  color: var(--white);
 }
-@media (max-width: 900px) { .services-subnav { padding: 0 24px; } }
+/* Hover on active segment: slightly lighter navy so hover is still visible */
+.subnav-link.active:hover { background: var(--navy-mid); }
+@media (max-width: 900px) {
+  .services-subnav { padding: 16px 24px; }
+  .subnav-link { padding: 10px 20px; }
+}
 </style>
 </head>
 <body>
@@ -312,7 +323,7 @@ footer {
 
 <!-- SUB-NAV -->
 <div class="services-subnav">
-  <div class="container">
+  <div class="subnav-pill">
     <a href="#actuarial" class="subnav-link">Strategic Advisory</a>
     <a href="#admin" class="subnav-link">Operational Execution</a>
   </div>
@@ -560,18 +571,33 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// Sub-nav active state
-const subnavLinks = document.querySelectorAll('.subnav-link');
-const sectionObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      subnavLinks.forEach(l => l.classList.remove('active'));
-      const link = document.querySelector('.subnav-link[href="#' + e.target.id + '"]');
-      if (link) link.classList.add('active');
+// Sub-nav active state — scroll-driven only, fully separate from CSS :hover
+// Tracks which section occupies the upper portion of the viewport.
+(function () {
+  var links = Array.from(document.querySelectorAll('.subnav-link'));
+  var sections = ['actuarial', 'admin'].map(function(id) {
+    return document.getElementById(id);
+  }).filter(Boolean);
+
+  function setActive(id) {
+    links.forEach(function(l) {
+      var isMatch = l.getAttribute('href') === '#' + id;
+      l.classList.toggle('active', isMatch);
+    });
+  }
+
+  var io = new IntersectionObserver(function(entries) {
+    // Collect all currently intersecting sections, pick the topmost one
+    var intersecting = entries
+      .filter(function(e) { return e.isIntersecting; })
+      .sort(function(a, b) { return a.boundingClientRect.top - b.boundingClientRect.top; });
+    if (intersecting.length > 0) {
+      setActive(intersecting[0].target.id);
     }
-  });
-}, { rootMargin: '-20% 0px -60% 0px' });
-document.querySelectorAll('#actuarial, #admin').forEach(s => sectionObserver.observe(s));
+  }, { rootMargin: '-15% 0px -55% 0px', threshold: 0 });
+
+  sections.forEach(function(s) { io.observe(s); });
+}());
 </script>
 </body>
 </html>
