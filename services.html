@@ -252,6 +252,26 @@ footer {
   footer { padding: 36px 24px; flex-direction: column; gap: 20px; align-items: flex-start; }
   #cta { padding: 64px 0; }
 }
+
+/* ── SERVICES SUB-NAV ── */
+.services-subnav {
+  position: sticky; top: 80px; z-index: 99;
+  background: var(--navy-deep);
+  border-bottom: 1px solid var(--rule-dark);
+  padding: 0 60px;
+}
+.services-subnav .container { display: flex; gap: 0; padding: 0; }
+.subnav-link {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(255,255,255,0.5); text-decoration: none;
+  padding: 14px 24px 12px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  display: inline-block;
+}
+.subnav-link:hover { color: var(--amber); border-bottom-color: var(--amber); }
+@media (max-width: 900px) { .services-subnav { padding: 0 24px; } }
 </style>
 </head>
 <body>
@@ -275,21 +295,27 @@ footer {
   <div class="page-hero-accent"></div>
   <div class="page-hero-inner">
     <span class="label page-hero-eyebrow">What We Do</span>
-    <h1 class="page-hero-h1">Two practices.<br>One standard of excellence.</h1>
-    <p class="page-hero-sub">PSE's work divides into two distinct practices — high-stakes actuarial strategy led personally by Chuck Ritzke, and a full operational practice run by his team. The work looks different. The standard doesn't.</p>
+    <h1 class="page-hero-h1">Strategic advisory. Operational execution. One firm.</h1>
+    <p class="page-hero-sub">PSE works two ways — high-stakes strategic advisory led personally by Chuck Ritzke, and full operational execution delivered by his team. The work looks different. The standard doesn't.</p>
   </div>
 </section>
+
+<!-- SUB-NAV -->
+<div class="services-subnav">
+  <div class="container">
+    <a href="#actuarial" class="subnav-link">Strategic Advisory</a>
+    <a href="#admin" class="subnav-link">Operational Execution</a>
+  </div>
+</div>
 
 <!-- ACTUARIAL STRATEGY & INNOVATION -->
 <section id="actuarial" style="background:var(--white); padding: 80px 0;">
   <div class="container">
     <div class="svc-header reveal">
-      <div style="font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--navy); background:var(--amber); display:inline-block; padding:4px 12px; margin-bottom:20px;">Practice One of Two</div>
-      <span class="label svc-eyebrow">Actuarial · Strategy</span>
-      <h2 class="svc-h2">The work Chuck does personally.</h2>
+      <h2 class="svc-h2">Strategic Advisory</h2>
       <div class="svc-body">
         <p>Chuck Ritzke has spent four decades at the intersection of insurance product development and actuarial rigor. The work in this practice isn't delegated — it's the work Chuck does himself. From initial product concept through regulatory approval, every engagement here is led by an FSA with the depth to identify risk before it becomes a problem and the creativity to design products that work in the real world. This is not boilerplate consulting. The products that come out of this practice are built on 40 years of doing the hard work no one else will touch.</p>
-        <p>PSE's actuarial strategy work spans the full product lifecycle — from early-stage feasibility and pricing through ongoing actuarial support, software development, and carrier negotiations. Whether you're a carrier launching a new product line, a distributor bringing a concept to market, or an insurtech company building credibility with a carrier partner, this is where that work gets done right.</p>
+        <p>PSE's actuarial strategy work spans the full product lifecycle — from early-stage feasibility and pricing through ongoing actuarial support, software strategy, and carrier negotiations. Whether you're a carrier launching a new product line, a distributor bringing a concept to market, or an insurtech company building credibility with a carrier partner, this is where that work gets done right.</p>
       </div>
     </div>
   </div>
@@ -321,13 +347,13 @@ footer {
         </div>
 
         <div class="svc-card reveal">
-          <div class="svc-card-title">Software Development</div>
-          <p class="svc-card-body">Custom actuarial and insurance software built for problems that off-the-shelf tools can't solve. Illustration engines, planning platforms, administrative tools, and data systems — designed by people who understand both the insurance problem and the technical requirements.</p>
+          <div class="svc-card-title">Software Architecture &amp; Strategy</div>
+          <p class="svc-card-body">Defining the technical direction before a line of code gets written for insurance and actuarial systems — architecture decisions, build vs. buy, and platform strategy that Chuck leads directly.</p>
           <ul class="svc-card-caps">
-            <li>Illustration and quoting systems</li>
-            <li>Financial planning and modeling platforms</li>
-            <li>Data analysis and regulatory reporting tools</li>
-            <li>API integration and system interfaces</li>
+            <li>Technical architecture and platform strategy</li>
+            <li>Build vs. buy evaluation</li>
+            <li>System requirements and specifications</li>
+            <li>Vendor and technical partner evaluation</li>
           </ul>
         </div>
 
@@ -379,11 +405,9 @@ footer {
 <section id="admin" style="background:var(--off-white); padding: 80px 0;">
   <div class="container">
     <div class="svc-header reveal">
-      <div style="font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--navy); background:var(--amber); display:inline-block; padding:4px 12px; margin-bottom:20px;">Practice Two of Two</div>
-      <span class="label svc-eyebrow">Operations · Support</span>
-      <h2 class="svc-h2">The execution layer that makes innovation real.</h2>
+      <h2 class="svc-h2">Operational Execution</h2>
       <div class="svc-body">
-        <p>Not every piece of work in insurance is glamorous. System conversions, compliance filings, legacy block administration, ongoing policy support — this is the operational layer that holds insurance products together after they're launched. Without it, even the best product design falls apart in execution. PSE's administrative and operational practice handles this work with the same precision and institutional knowledge we bring to product development.</p>
+        <p>Not every piece of work in insurance is glamorous. System conversions, compliance filings, legacy block administration, software development, ongoing policy support — this is the operational layer that holds insurance products together after they're launched. Without it, even the best product design falls apart in execution. PSE's administrative and operational practice handles this work with the same precision and institutional knowledge we bring to product development.</p>
         <p>This practice is team-delivered. Chuck has built a team of specialists with deep experience in insurance operations, regulatory compliance, and administrative systems. They handle the work that's too important to hand off to someone who doesn't understand insurance, and too time-consuming to staff internally. If you've worked with PSE on a product launch, this is the team that keeps it running.</p>
       </div>
     </div>
@@ -421,6 +445,16 @@ footer {
       </div>
 
       <div class="admin-category">
+        <div class="admin-cat-title">Software Development &amp; Maintenance</div>
+        <ul class="admin-cat-list">
+          <li>Custom application development</li>
+          <li>Illustration and quoting system builds</li>
+          <li>Ongoing maintenance and support</li>
+          <li>Bug fixes and feature updates</li>
+        </ul>
+      </div>
+
+      <div class="admin-category">
         <div class="admin-cat-title">Policy Administration &amp; Ongoing Support</div>
         <ul class="admin-cat-list">
           <li>Day-to-day policy administration and recordkeeping</li>
@@ -451,7 +485,7 @@ footer {
       </div>
 
       <div class="admin-category" style="grid-column: 1 / -1; border-right: none;">
-        <div class="admin-cat-title">Marketing Consulting &amp; Distribution Support</div>
+        <div class="admin-cat-title">Marketing &amp; GTM Support</div>
         <ul class="admin-cat-list" style="columns: 2; gap: 40px; display: block;">
           <li style="display:flex; align-items:flex-start; gap:10px; margin-bottom:8px; break-inside:avoid;"><span style="width:4px;height:4px;background:var(--amber);border-radius:50%;margin-top:6px;flex-shrink:0;display:inline-block;"></span>Distribution strategy and channel development</li>
           <li style="display:flex; align-items:flex-start; gap:10px; margin-bottom:8px; break-inside:avoid;"><span style="width:4px;height:4px;background:var(--amber);border-radius:50%;margin-top:6px;flex-shrink:0;display:inline-block;"></span>Marketing material review and compliance</li>
